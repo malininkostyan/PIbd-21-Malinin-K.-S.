@@ -16,8 +16,6 @@ namespace WindowsFormsBus
     }
     public class Bus : StandartBus
     {
-        private const int busWidth = 140;
-        private const int busHeight = 25;
         public Color DopColor { private set; get; }
         public bool Toner { private set; get; }
         public bool Garm { private set; get; }
@@ -27,6 +25,20 @@ namespace WindowsFormsBus
             DopColor = dopColor;
             Toner = toner;
             Garm = garm;
+        }
+
+        public Bus(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Toner = Convert.ToBoolean(strs[4]);
+                Garm = Convert.ToBoolean(strs[5]);
+            }
         }
 
         public override void DrawBus(Graphics g)
@@ -39,6 +51,7 @@ namespace WindowsFormsBus
             }
 
             Brush brush = new SolidBrush(Color.Black);
+
             base.DrawBus(g);
 
             if (Garm)
@@ -51,10 +64,15 @@ namespace WindowsFormsBus
                 g.FillEllipse(brush, _startPosX + 113, _startPosY + 15, 15, 15);
                 g.FillRectangle(brush, _startPosX + 80, _startPosY - 3, 8, 25);
             }
+
         }
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + Toner + ";" + Garm;
         }
     }
 }

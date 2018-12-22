@@ -66,16 +66,17 @@ namespace WindowsFormsBus
 
         public void Draw(Graphics g)
         {
-            DrawMarking(g);
-            foreach (var bus in _places)
+            DrawParking(g);
+            foreach (var i in _places)
             {
-                bus.Value.DrawBus(g);
+                i.Value.DrawBus(g);
             }
         }
 
-        private void DrawMarking(Graphics g)
+        private void DrawParking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
+
             g.DrawRectangle(pen, 0, 0, (_maxCount / 5) * _placeSizeWidth, 480);
             for (int i = 0; i < _maxCount / 5; i++)
             {
@@ -85,6 +86,26 @@ namespace WindowsFormsBus
                     i * _placeSizeWidth + 110, j * _placeSizeHeight);
                 }
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, 400);
+            }
+        }
+        public T this[int ind]
+        {
+            get
+            {
+                if (_places.ContainsKey(ind))
+                {
+                    return _places[ind];
+                }
+                return null;
+            }
+            set
+            {
+                if (CheckFreePlace(ind))
+                {
+                    _places.Add(ind, value);
+                    _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5 *
+                    _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                }
             }
         }
     }
