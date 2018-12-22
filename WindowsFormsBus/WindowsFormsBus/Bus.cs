@@ -6,6 +6,7 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
+
     public enum Direction
     {
         Up,
@@ -19,7 +20,7 @@ namespace WindowsFormsBus
         public Color DopColor { private set; get; }
         public bool Toner { private set; get; }
         public bool Garm { private set; get; }
-
+        
         public Bus(int maxSpeed, float weight, Color mainColor, Color dopColor, bool toner, bool garm) : base(maxSpeed, weight, mainColor)
         {
             DopColor = dopColor;
@@ -64,7 +65,6 @@ namespace WindowsFormsBus
                 g.FillEllipse(brush, _startPosX + 113, _startPosY + 15, 15, 15);
                 g.FillRectangle(brush, _startPosX + 80, _startPosY - 3, 8, 25);
             }
-
         }
         public void SetDopColor(Color color)
         {

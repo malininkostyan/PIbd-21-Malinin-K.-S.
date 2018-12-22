@@ -32,7 +32,7 @@ namespace WindowsFormsBus
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new ParkingOverflowException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -56,7 +56,7 @@ namespace WindowsFormsBus
                 p._places.Remove(index);
                 return bus;
             }
-            return null;
+            throw new ParkingNotFoundException(index);
         }
 
         private bool CheckFreePlace(int index)
@@ -67,6 +67,7 @@ namespace WindowsFormsBus
         public void Draw(Graphics g)
         {
             DrawParking(g);
+
             foreach (var i in _places)
             {
                 i.Value.DrawBus(g);
@@ -76,7 +77,6 @@ namespace WindowsFormsBus
         private void DrawParking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
-
             g.DrawRectangle(pen, 0, 0, (_maxCount / 5) * _placeSizeWidth, 480);
             for (int i = 0; i < _maxCount / 5; i++)
             {
@@ -96,7 +96,8 @@ namespace WindowsFormsBus
                 {
                     return _places[ind];
                 }
-                return null;
+                throw new ParkingNotFoundException(ind);
+
             }
             set
             {
@@ -105,6 +106,10 @@ namespace WindowsFormsBus
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5 *
                     _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new ParkingOccupiedPlaceException(ind);
                 }
             }
         }

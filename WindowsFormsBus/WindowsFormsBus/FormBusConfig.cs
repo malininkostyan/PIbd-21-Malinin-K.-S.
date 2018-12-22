@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,12 +12,13 @@ namespace WindowsFormsBus
 {
     public partial class FormBusConfig : Form
     {
-
+        private Logger logger;
         ITransport bus = null;
         private event busDelegate eventAddBus;
 
         public FormBusConfig()
         {
+            logger = LogManager.GetCurrentClassLogger();
             InitializeComponent();
             panelBlack.MouseDown += panelColor_MouseDown;
             panelPink.MouseDown += panelColor_MouseDown;
@@ -27,7 +29,6 @@ namespace WindowsFormsBus
             panelYellow.MouseDown += panelColor_MouseDown;
             panelBlue.MouseDown += panelColor_MouseDown;
             buttonCancel.Click += (object sender, EventArgs e) => { Close(); };
-
 
             buttonAdd.Click += delegate (System.Object o, System.EventArgs e)
             {
@@ -53,6 +54,7 @@ namespace WindowsFormsBus
             {
                 eventAddBus = new busDelegate(ev);
             }
+
             else
             {
                 eventAddBus += ev;
@@ -62,7 +64,6 @@ namespace WindowsFormsBus
         private void labelBus_MouseDown(object sender, MouseEventArgs e)
         {
             labelBus.DoDragDrop(labelBus.Text, DragDropEffects.Move | DragDropEffects.Copy);
-
         }
 
         private void labelBu_MouseDown(object sender, MouseEventArgs e)
