@@ -15,7 +15,7 @@ namespace WindowsFormsBus
         Right,
         LeftUp
     }
-    public class Bus : StandartBus
+    public class Bus : StandartBus, IComparable<Bus>, IEquatable<Bus>
     {
         public Color DopColor { private set; get; }
         public bool Toner { private set; get; }
@@ -51,7 +51,7 @@ namespace WindowsFormsBus
                 window = new SolidBrush(Color.Black);
             }
 
-            Brush brush = new SolidBrush(Color.Black);
+            Brush brash = new SolidBrush(Color.Black);
 
             base.DrawBus(g);
 
@@ -62,8 +62,8 @@ namespace WindowsFormsBus
                 g.FillRectangle(window, _startPosX + 114, _startPosY, 7, 7);
                 g.FillRectangle(window, _startPosX + 125, _startPosY, 7, 7);
                 g.FillRectangle(window, _startPosX + 92, _startPosY, 7, 7);
-                g.FillEllipse(brush, _startPosX + 113, _startPosY + 15, 15, 15);
-                g.FillRectangle(brush, _startPosX + 80, _startPosY - 3, 8, 25);
+                g.FillEllipse(brash, _startPosX + 113, _startPosY + 15, 15, 15);
+                g.FillRectangle(brash, _startPosX + 80, _startPosY - 3, 8, 25);
             }
         }
         public void SetDopColor(Color color)
@@ -73,6 +73,76 @@ namespace WindowsFormsBus
         public override string ToString()
         {
             return base.ToString() + ";" + DopColor.Name + ";" + Toner + ";" + Garm;
+        }
+
+        public int CompareTo(Bus other)
+        {
+            var res = (this is StandartBus).CompareTo(other is StandartBus);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (Garm != other.Garm)
+            {
+                return Garm.CompareTo(other.Garm);
+            }
+            if (Toner != other.Toner)
+            {
+                return Toner.CompareTo(other.Toner);
+            }
+            return 0;
+        }
+
+        public bool Equals(Bus other)
+        {
+            var res = (this as StandartBus).Equals(other as StandartBus);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Garm != other.Garm)
+            {
+                return false;
+            }
+            if (Toner != other.Toner)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Bus busObj = obj as Bus;
+            if (busObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(busObj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

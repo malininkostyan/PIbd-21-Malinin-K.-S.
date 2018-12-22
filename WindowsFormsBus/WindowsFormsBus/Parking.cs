@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-    public class Parking<T> where T : class, ITransport
+    public class Parking<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Parking<T>> where T : class, ITransport
     {
         private Dictionary<int, T> _places;
 
@@ -20,10 +21,21 @@ namespace WindowsFormsBus
 
         private int _placeSizeHeight = 80;
 
+        private int _currentIndex;
+
+        public int GetKey
+        {
+            get
+            {
+                return _places.Keys.ToList()[_currentIndex];
+            }
+        }
+
         public Parking(int sizes, int pictureWidth, int pictureHeight)
         {
             _maxCount = sizes;
             _places = new Dictionary<int, T>();
+            _currentIndex = -1;
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
         }
@@ -34,14 +46,17 @@ namespace WindowsFormsBus
             {
                 throw new ParkingOverflowException();
             }
+            if (p._places.ContainsValue(bus))
+            {
+                throw new ParkingAlreadyHaveException();
+            }
             for (int i = 0; i < p._maxCount; i++)
             {
                 if (p.CheckFreePlace(i))
                 {
                     p._places.Add(i, bus);
                     p._places[i].SetPosition(5 + i / 5 * p._placeSizeWidth + 5,
-                     i % 5 * p._placeSizeHeight + 15, p.PictureWidth,
-                    p.PictureHeight);
+                    i % 5 * p._placeSizeHeight + 15, p.PictureWidth, p.PictureHeight);
                     return i;
                 }
             }
@@ -68,9 +83,9 @@ namespace WindowsFormsBus
         {
             DrawParking(g);
 
-            foreach (var i in _places)
+            foreach (var bus in _places)
             {
-                i.Value.DrawBus(g);
+                bus.Value.DrawBus(g);
             }
         }
 
@@ -97,7 +112,6 @@ namespace WindowsFormsBus
                     return _places[ind];
                 }
                 throw new ParkingNotFoundException(ind);
-
             }
             set
             {
@@ -112,6 +126,89 @@ namespace WindowsFormsBus
                     throw new ParkingOccupiedPlaceException(ind);
                 }
             }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int CompareTo(Parking<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is StandartBus && other._places[thisKeys[i]] is Bus)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is Bus && other._places[thisKeys[i]] is StandartBus)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Bus && other._places[thisKeys[i]] is StandartBus)
+                    {
+                        return (_places[thisKeys[i]] is StandartBus).CompareTo(other._places[thisKeys[i]] is StandartBus);
+                    }
+                    if (_places[thisKeys[i]] is Bus && other._places[thisKeys[i]] is Bus)
+                    {
+                        return (_places[thisKeys[i]] is Bus).CompareTo(other._places[thisKeys[i]] is Bus);
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-    public class StandartBus : Vehicle
+    public class StandartBus : Vehicle, IComparable<StandartBus>, IEquatable<StandartBus>
     {
         protected const int busWidth = 100;
 
@@ -73,7 +73,7 @@ namespace WindowsFormsBus
             Brush brash = new SolidBrush(Color.Black);
             g.FillEllipse(brash, _startPosX + 63, _startPosY + 15, 15, 15);
             g.FillEllipse(brash, _startPosX + 25, _startPosY + 15, 15, 15);
-
+            
             Brush window = new SolidBrush(Color.Blue);
             g.FillRectangle(window, _startPosX + 13, _startPosY, 9, 9);
             g.FillRectangle(window, _startPosX + 61, _startPosY, 7, 7);
@@ -88,6 +88,73 @@ namespace WindowsFormsBus
         {
             return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
+
+        public int CompareTo(StandartBus other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (MainColor != other.MainColor)
+            {
+                MainColor.Name.CompareTo(other.MainColor.Name);
+            }
+            return 0;
+        }
+
+        public bool Equals(StandartBus other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            StandartBus busObj = obj as StandartBus;
+            if (busObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(busObj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
-
