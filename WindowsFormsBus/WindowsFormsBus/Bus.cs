@@ -18,7 +18,6 @@ namespace WindowsFormsBus
     {
         private const int busWidth = 140;
         private const int busHeight = 25;
-
         public Color DopColor { private set; get; }
         public bool Toner { private set; get; }
         public bool Garm { private set; get; }
@@ -29,6 +28,7 @@ namespace WindowsFormsBus
             Toner = toner;
             Garm = garm;
         }
+
         public override void DrawBus(Graphics g)
         {
             Brush bus = new SolidBrush(DopColor);

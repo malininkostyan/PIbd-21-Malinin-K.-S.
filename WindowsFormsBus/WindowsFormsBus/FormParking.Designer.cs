@@ -28,33 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBoxParking = new System.Windows.Forms.PictureBox();
-            this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonTakeBus = new System.Windows.Forms.Button();
             this.buttonSetBus = new System.Windows.Forms.Button();
             this.buttonSetStandartBus = new System.Windows.Forms.Button();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBoxParking = new System.Windows.Forms.PictureBox();
+            this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBoxParking
-            // 
-            this.pictureBoxParking.Location = new System.Drawing.Point(0, 2);
-            this.pictureBoxParking.Name = "pictureBoxParking";
-            this.pictureBoxParking.Size = new System.Drawing.Size(1140, 598);
-            this.pictureBoxParking.TabIndex = 0;
-            this.pictureBoxParking.TabStop = false;
-            // 
-            // pictureBoxTakeBus
-            // 
-            this.pictureBoxTakeBus.Location = new System.Drawing.Point(1103, 497);
-            this.pictureBoxTakeBus.Name = "pictureBoxTakeBus";
-            this.pictureBoxTakeBus.Size = new System.Drawing.Size(205, 99);
-            this.pictureBoxTakeBus.TabIndex = 7;
-            this.pictureBoxTakeBus.TabStop = false;
             // 
             // label2
             // 
@@ -93,7 +79,7 @@
             // 
             // buttonSetBus
             // 
-            this.buttonSetBus.Location = new System.Drawing.Point(1157, 204);
+            this.buttonSetBus.Location = new System.Drawing.Point(1157, 248);
             this.buttonSetBus.Name = "buttonSetBus";
             this.buttonSetBus.Size = new System.Drawing.Size(167, 79);
             this.buttonSetBus.TabIndex = 12;
@@ -102,7 +88,7 @@
             // 
             // buttonSetStandartBus
             // 
-            this.buttonSetStandartBus.Location = new System.Drawing.Point(1157, 101);
+            this.buttonSetStandartBus.Location = new System.Drawing.Point(1156, 153);
             this.buttonSetStandartBus.Name = "buttonSetStandartBus";
             this.buttonSetStandartBus.Size = new System.Drawing.Size(167, 79);
             this.buttonSetStandartBus.TabIndex = 13;
@@ -110,19 +96,56 @@
             this.buttonSetStandartBus.UseVisualStyleBackColor = true;
             this.buttonSetStandartBus.Click += new System.EventHandler(this.buttonSetStandartBus_Click_1);
             // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.ItemHeight = 16;
+            this.listBoxLevels.Location = new System.Drawing.Point(1156, 38);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(168, 100);
+            this.listBoxLevels.TabIndex = 15;
+            this.listBoxLevels.Click += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1213, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 17);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Уровни:";
+            // 
+            // pictureBoxParking
+            // 
+            this.pictureBoxParking.Location = new System.Drawing.Point(7, 5);
+            this.pictureBoxParking.Name = "pictureBoxParking";
+            this.pictureBoxParking.Size = new System.Drawing.Size(1127, 597);
+            this.pictureBoxParking.TabIndex = 17;
+            this.pictureBoxParking.TabStop = false;
+            // 
+            // pictureBoxTakeBus
+            // 
+            this.pictureBoxTakeBus.Location = new System.Drawing.Point(1116, 503);
+            this.pictureBoxTakeBus.Name = "pictureBoxTakeBus";
+            this.pictureBoxTakeBus.Size = new System.Drawing.Size(148, 99);
+            this.pictureBoxTakeBus.TabIndex = 18;
+            this.pictureBoxTakeBus.TabStop = false;
+            // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1337, 608);
+            this.Controls.Add(this.pictureBoxTakeBus);
+            this.Controls.Add(this.pictureBoxParking);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.buttonSetBus);
             this.Controls.Add(this.buttonSetStandartBus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.maskedTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonTakeBus);
-            this.Controls.Add(this.pictureBoxTakeBus);
-            this.Controls.Add(this.pictureBoxParking);
             this.Name = "FormParking";
             this.Text = "Парковка";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).EndInit();
@@ -133,14 +156,15 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBoxParking;
-        private System.Windows.Forms.PictureBox pictureBoxTakeBus;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonTakeBus;
         private System.Windows.Forms.Button buttonSetBus;
         private System.Windows.Forms.Button buttonSetStandartBus;
+        private System.Windows.Forms.ListBox listBoxLevels;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBoxParking;
+        private System.Windows.Forms.PictureBox pictureBoxTakeBus;
     }
 }
