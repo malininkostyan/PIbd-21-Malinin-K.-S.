@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsBus
 {
+    public delegate void busDelegate(ITransport bus);
     static class Program
     {
         [STAThread]

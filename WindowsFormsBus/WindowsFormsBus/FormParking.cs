@@ -13,6 +13,8 @@ namespace WindowsFormsBus
     {
         MultiLevelParking parking;
 
+        FormBusConfig form;
+
         private const int countLevel = 5;
         public FormParking()
         {
@@ -34,10 +36,8 @@ namespace WindowsFormsBus
                 Graphics gr = Graphics.FromImage(bmp);
                 parking[listBoxLevels.SelectedIndex].Draw(gr);
                 pictureBoxParking.Image = bmp;
-               
             }
         }
-
         private void buttonTakeBus_Click(object sender, EventArgs e)
         {
             if (listBoxLevels.SelectedIndex > -1)
@@ -58,60 +58,41 @@ namespace WindowsFormsBus
                     else
                     {
                         Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
-                        pictureBoxTakeBus.Height);
+                       pictureBoxTakeBus.Height);
                         pictureBoxTakeBus.Image = bmp;
                     }
                     Draw();
                 }
             }
         }
-
-
-        private void buttonSetStandartBus_Click_1(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    var bus = new StandartBus(100, 1000, dialog.Color);
-                    int place = parking[listBoxLevels.SelectedIndex] + bus;
-                    if (place == -1)
-                    {
-                        MessageBox.Show("Нет свободных мест", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    Draw();
-                }
-            }
-        }
-
-        private void buttonSetBus_Click_1(object sender, EventArgs e)
-        {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var bus = new Bus(100, 1000, dialog.Color, dialogDop.Color, true, true);
-                        int place = parking[listBoxLevels.SelectedIndex] + bus;
-                        if (place == -1)
-                        {
-                            MessageBox.Show("Нет свободных мест", "Ошибка",
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        Draw();
-                    }
-                }
-            }
-        }
-
+        
+      
         private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
         }
+
+        private void AddBus(ITransport bus)
+        {
+            if (bus != null && listBoxLevels.SelectedIndex > -1)
+            {
+                int place = parking[listBoxLevels.SelectedIndex] + bus;
+                if (place > -1)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Автобус не удалось поставить");
+                }
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            form = new FormBusConfig();
+            form.AddEvent(AddBus);
+            form.Show();
+        }
     }
+
 }

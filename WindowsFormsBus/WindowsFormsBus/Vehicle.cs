@@ -24,5 +24,9 @@ namespace WindowsFormsBus
             _pictureWidth = width;
             _pictureHeight = height;
         }
+        public void SetMainColor(Color color)
+        {
+            MainColor = color;
+        }
     }
 }

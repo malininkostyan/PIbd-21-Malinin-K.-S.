@@ -67,9 +67,9 @@ namespace WindowsFormsBus
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            foreach (var i in _places)
+            foreach (var bus in _places)
             {
-                i.Value.DrawBus(g);
+                bus.Value.DrawBus(g);
             }
         }
 
