@@ -7,14 +7,6 @@ using System.Text;
 namespace WindowsFormsBus
 {
 
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        LeftUp
-    }
     public class Bus : StandartBus
     {
         public Color DopColor { private set; get; }
