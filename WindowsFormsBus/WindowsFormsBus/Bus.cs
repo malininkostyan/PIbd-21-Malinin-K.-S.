@@ -6,7 +6,6 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-   
     public class Bus : StandartBus
     {
         private const int busWidth = 140;
