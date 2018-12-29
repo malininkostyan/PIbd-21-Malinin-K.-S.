@@ -6,14 +6,7 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        LeftUp
-    }
+   
     public class Bus : StandartBus
     {
         private const int busWidth = 140;
