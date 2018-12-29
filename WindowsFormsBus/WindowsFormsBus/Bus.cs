@@ -6,7 +6,6 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-    
     public class Bus : StandartBus
     {
         public Color DopColor { private set; get; }
