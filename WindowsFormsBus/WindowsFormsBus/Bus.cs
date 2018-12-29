@@ -6,7 +6,6 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-
     public class Bus : StandartBus, IComparable<Bus>, IEquatable<Bus>
     {
         public Color DopColor { private set; get; }
