@@ -19,8 +19,8 @@ namespace WindowsFormsBus
         public abstract void MoveTransport(Direction direction);
         public void SetPosition(int x, int y, int width, int height)
         {
-            _startPosX = x-15;
-            _startPosY = y+15;
+            _startPosX = x - 15;
+            _startPosY = y + 15;
             _pictureWidth = width;
             _pictureHeight = height;
         }

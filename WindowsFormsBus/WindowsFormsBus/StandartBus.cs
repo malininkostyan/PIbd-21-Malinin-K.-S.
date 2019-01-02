@@ -9,6 +9,7 @@ namespace WindowsFormsBus
     public class StandartBus : Vehicle
     {
         protected const int carWidth = 100;
+
         protected const int carHeight = 60;
 
         public StandartBus(int maxSpeed, float weight, Color mainColor)
@@ -17,6 +18,7 @@ namespace WindowsFormsBus
             Weight = weight;
             MainColor = mainColor;
         }
+
         public override void DrawBus(Graphics g)
         {
             Brush bus = new SolidBrush(MainColor);
@@ -24,15 +26,15 @@ namespace WindowsFormsBus
 
             Brush brash = new SolidBrush(Color.Black);
             g.FillEllipse(brash, _startPosX + 63, _startPosY + 15, 15, 15);
-            g.FillRectangle(brash, _startPosX + 13, _startPosY, 8, 8);
             g.FillEllipse(brash, _startPosX + 25, _startPosY + 15, 15, 15);
 
             Brush window = new SolidBrush(Color.Blue);
-            g.FillRectangle(window, _startPosX + 62, _startPosY, 7, 7);
-            g.FillRectangle(window, _startPosX + 72, _startPosY, 7, 7);
+            g.FillRectangle(window, _startPosX + 13, _startPosY, 9, 9);
+            g.FillRectangle(window, _startPosX + 61, _startPosY, 7, 7);
+            g.FillRectangle(window, _startPosX + 70, _startPosY, 7, 7);
             g.FillRectangle(window, _startPosX + 43, _startPosY, 7, 7);
-            g.FillRectangle(window, _startPosX + 33, _startPosY, 7, 7);
-            g.FillRectangle(window, _startPosX + 23, _startPosY, 7, 7);
+            g.FillRectangle(window, _startPosX + 34, _startPosY, 7, 7);
+            g.FillRectangle(window, _startPosX + 25, _startPosY, 7, 7);
             g.FillRectangle(window, _startPosX + 52, _startPosY, 7, 7);
         }
 

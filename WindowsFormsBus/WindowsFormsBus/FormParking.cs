@@ -11,71 +11,107 @@ namespace WindowsFormsBus
 {
     public partial class FormParking : Form
     {
-        Parking<ITransport> parking;
+        MultiLevelParking parking;
 
+        private const int countLevel = 5;
         public FormParking()
         {
             InitializeComponent();
-            parking = new Parking<ITransport>(20, pictureBoxParking.Width, pictureBoxParking.Height);
+            parking = new MultiLevelParking(countLevel, pictureBoxParking.Width, pictureBoxParking.Height);
+            for (int i = 0; i < countLevel; i++)
+            {
+                listBoxLevels.Items.Add("Уровень " + (i + 1));
+            }
+            listBoxLevels.SelectedIndex = 0;
             Draw();
         }
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            parking.Draw(gr);
-            pictureBoxParking.Image = bmp;
+            if (listBoxLevels.SelectedIndex > -1)
+            {
+                Bitmap bmp = new Bitmap(pictureBoxParking.Width,
+                pictureBoxParking.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                parking[listBoxLevels.SelectedIndex].Draw(gr);
+                pictureBoxParking.Image = bmp;
+               
+            }
         }
 
         private void buttonTakeBus_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "")
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var bus = parking - Convert.ToInt32(maskedTextBox.Text);
-                if (bus != null)
+                if (maskedTextBox.Text != "")
                 {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
-                    pictureBoxTakeBus.Height);
-                    Graphics gr = Graphics.FromImage(bmp);
-                    bus.SetPosition(5, 5, pictureBoxTakeBus.Width,
-                    pictureBoxTakeBus.Height);
-                    bus.DrawBus(gr);
-                    pictureBoxTakeBus.Image = bmp;
+                    var bus = parking[listBoxLevels.SelectedIndex] -
+                   Convert.ToInt32(maskedTextBox.Text);
+                    if (bus != null)
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width, pictureBoxTakeBus.Height);
+                        Graphics gr = Graphics.FromImage(bmp);
+                        bus.SetPosition(5, 5, pictureBoxTakeBus.Width,
+                        pictureBoxTakeBus.Height);
+                        bus.DrawBus(gr);
+                        pictureBoxTakeBus.Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
+                        pictureBoxTakeBus.Height);
+                        pictureBoxTakeBus.Image = bmp;
+                    }
+                    Draw();
                 }
-                else
-                {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
-                   pictureBoxTakeBus.Height);
-                    pictureBoxTakeBus.Image = bmp;
-                }
-                Draw();
             }
         }
 
+
         private void buttonSetStandartBus_Click_1(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var bus = new StandartBus(100, 1000, dialog.Color);
-                int place = parking + bus;
-                Draw();
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var bus = new StandartBus(100, 1000, dialog.Color);
+                    int place = parking[listBoxLevels.SelectedIndex] + bus;
+                    if (place == -1)
+                    {
+                        MessageBox.Show("Нет свободных мест", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    Draw();
+                }
             }
         }
 
         private void buttonSetBus_Click_1(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    var bus = new Bus(100, 1000, dialog.Color, dialogDop.Color, false, true);
-                    int place = parking + bus;
-                    Draw();
+                    ColorDialog dialogDop = new ColorDialog();
+                    if (dialogDop.ShowDialog() == DialogResult.OK)
+                    {
+                        var bus = new Bus(100, 1000, dialog.Color, dialogDop.Color, true, true);
+                        int place = parking[listBoxLevels.SelectedIndex] + bus;
+                        if (place == -1)
+                        {
+                            MessageBox.Show("Нет свободных мест", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Draw();
+                    }
                 }
             }
+        }
+
+        private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
         }
     }
 }
