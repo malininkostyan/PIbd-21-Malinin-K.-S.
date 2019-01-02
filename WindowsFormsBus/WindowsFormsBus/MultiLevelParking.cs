@@ -8,7 +8,6 @@ namespace WindowsFormsBus
 {
     class MultiLevelParking
     {
-
         List<Parking<ITransport>> parkingStages;
 
         private const int countPlaces = 20;
@@ -76,9 +75,7 @@ namespace WindowsFormsBus
                     }
                 }
             }
-
         }
-
         private void WriteToFile(string text, FileStream stream)
         {
             byte[] info = new UTF8Encoding(true).GetBytes(text);
@@ -144,6 +141,11 @@ namespace WindowsFormsBus
                 parkingStages[counter][Convert.ToInt32(strs[i].Split(':')[0])] = bus;
             }
             return true;
+        }
+
+        public void Sort()
+        {
+            parkingStages.Sort();
         }
     }
 }

@@ -19,8 +19,7 @@ namespace WindowsFormsBus
         private const int countLevel = 5;
 
         private Logger logger;
-
-
+        
         public FormParking()
         {
             InitializeComponent();
@@ -89,7 +88,6 @@ namespace WindowsFormsBus
 
         private void AddBus(ITransport bus)
         {
-            
             if (bus != null && listBoxLevels.SelectedIndex > -1)
             {
                 try
@@ -114,9 +112,7 @@ namespace WindowsFormsBus
         private void button3_Click(object sender, EventArgs e)
         {
             form = new FormBusConfig();
-
             form.AddEvent(AddBus);
-
             form.Show();
         }
 
@@ -134,7 +130,7 @@ namespace WindowsFormsBus
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -162,6 +158,13 @@ namespace WindowsFormsBus
                 }
                 Draw();
             }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            parking.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
         }
     }
 }
