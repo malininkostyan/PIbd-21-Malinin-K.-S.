@@ -43,7 +43,7 @@ namespace WindowsFormsBus
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -57,9 +57,10 @@ namespace WindowsFormsBus
                     fs.WriteLine("Level");
                     for (int i = 0; i < countPlaces; i++)
                     {
-                        var bus = level[i];
-                        if (bus != null)
+                        try
                         {
+                            var bus = level[i];
+
                             if (bus.GetType().Name == "StandartBus")
                             {
                                 fs.Write(i + ":StandartBus:");
@@ -70,10 +71,12 @@ namespace WindowsFormsBus
                             }
                             fs.WriteLine(bus);
                         }
+                        catch { }
+                        finally { }
                     }
                 }
             }
-            return true;
+
         }
 
         private void WriteToFile(string text, FileStream stream)
@@ -86,7 +89,7 @@ namespace WindowsFormsBus
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             string bufferTextFromFile = "";
             using (FileStream fs = new FileStream(filename, FileMode.Open))
@@ -114,7 +117,7 @@ namespace WindowsFormsBus
             }
             else
             {
-                return false;
+                throw new Exception("Неверный формат файла");
             }
             int counter = -1;
             ITransport bus = null;
