@@ -8,15 +8,61 @@ namespace WindowsFormsBus
 {
     public class StandartBus : Vehicle
     {
-        protected const int carWidth = 100;
+        protected const int busWidth = 100;
 
-        protected const int carHeight = 60;
+        protected const int busHeight = 60;
 
         public StandartBus(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
+        }
+
+        public StandartBus(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
+        public override void MoveTransport(Direction direction)
+        {
+            float step = MaxSpeed * 100 / Weight;
+            switch (direction)
+            {
+                // вправо
+                case Direction.Right:
+                    if (_startPosX + step < _pictureWidth - busWidth)
+                    {
+                        _startPosX += step;
+                    }
+                    break;
+                //влево
+                case Direction.Left:
+                    if (_startPosX - step > 0)
+                    {
+                        _startPosX -= step;
+                    }
+                    break;
+                //вверх
+                case Direction.Up:
+                    if (_startPosY - step > 0)
+                    {
+                        _startPosY -= step;
+                    }
+                    break;
+                //вниз
+                case Direction.Down:
+                    if (_startPosY + step < _pictureHeight - busHeight)
+                    {
+                        _startPosY += step;
+                    }
+                    break;
+            }
         }
 
         public override void DrawBus(Graphics g)
@@ -38,40 +84,10 @@ namespace WindowsFormsBus
             g.FillRectangle(window, _startPosX + 52, _startPosY, 7, 7);
         }
 
-        public override void MoveTransport(Direction direction)
+        public override string ToString()
         {
-            float step = MaxSpeed * 100 / Weight;
-            switch (direction)
-            {
-                // вправо
-                case Direction.Right:
-                    if (_startPosX + step < _pictureWidth - carWidth)
-                    {
-                        _startPosX += step;
-                    }
-                    break;
-                //влево
-                case Direction.Left:
-                    if (_startPosX - step > 0)
-                    {
-                        _startPosX -= step;
-                    }
-                    break;
-                //вверх
-                case Direction.Up:
-                    if (_startPosY - step > 0)
-                    {
-                        _startPosY -= step;
-                    }
-                    break;
-                //вниз
-                case Direction.Down:
-                    if (_startPosY + step < _pictureHeight - carHeight)
-                    {
-                        _startPosY += step;
-                    }
-                    break;
-            }
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
     }
 }
+

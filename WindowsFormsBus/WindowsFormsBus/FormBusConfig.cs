@@ -28,6 +28,7 @@ namespace WindowsFormsBus
             panelBlue.MouseDown += panelColor_MouseDown;
             buttonCancel.Click += (object sender, EventArgs e) => { Close(); };
 
+
             buttonAdd.Click += delegate (System.Object o, System.EventArgs e)
             {
                 eventAddBus.Invoke(bus);
