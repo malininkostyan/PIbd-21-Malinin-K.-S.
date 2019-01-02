@@ -32,12 +32,11 @@
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonTakeBus = new System.Windows.Forms.Button();
-            this.buttonSetBus = new System.Windows.Forms.Button();
-            this.buttonSetStandartBus = new System.Windows.Forms.Button();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBoxParking = new System.Windows.Forms.PictureBox();
             this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).BeginInit();
             this.SuspendLayout();
@@ -77,25 +76,6 @@
             this.buttonTakeBus.UseVisualStyleBackColor = true;
             this.buttonTakeBus.Click += new System.EventHandler(this.buttonTakeBus_Click);
             // 
-            // buttonSetBus
-            // 
-            this.buttonSetBus.Location = new System.Drawing.Point(1157, 248);
-            this.buttonSetBus.Name = "buttonSetBus";
-            this.buttonSetBus.Size = new System.Drawing.Size(167, 79);
-            this.buttonSetBus.TabIndex = 12;
-            this.buttonSetBus.Text = "Припарковать автобус с гармошкой";
-            this.buttonSetBus.Click += new System.EventHandler(this.buttonSetBus_Click_1);
-            // 
-            // buttonSetStandartBus
-            // 
-            this.buttonSetStandartBus.Location = new System.Drawing.Point(1156, 153);
-            this.buttonSetStandartBus.Name = "buttonSetStandartBus";
-            this.buttonSetStandartBus.Size = new System.Drawing.Size(167, 79);
-            this.buttonSetStandartBus.TabIndex = 13;
-            this.buttonSetStandartBus.Text = "Припарковать автобус";
-            this.buttonSetStandartBus.UseVisualStyleBackColor = true;
-            this.buttonSetStandartBus.Click += new System.EventHandler(this.buttonSetStandartBus_Click_1);
-            // 
             // listBoxLevels
             // 
             this.listBoxLevels.FormattingEnabled = true;
@@ -131,17 +111,26 @@
             this.pictureBoxTakeBus.TabIndex = 18;
             this.pictureBoxTakeBus.TabStop = false;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1156, 219);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(162, 53);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Заказать автобус";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1337, 608);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.pictureBoxTakeBus);
             this.Controls.Add(this.pictureBoxParking);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxLevels);
-            this.Controls.Add(this.buttonSetBus);
-            this.Controls.Add(this.buttonSetStandartBus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.maskedTextBox);
             this.Controls.Add(this.label1);
@@ -160,11 +149,10 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonTakeBus;
-        private System.Windows.Forms.Button buttonSetBus;
-        private System.Windows.Forms.Button buttonSetStandartBus;
         private System.Windows.Forms.ListBox listBoxLevels;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBoxParking;
         private System.Windows.Forms.PictureBox pictureBoxTakeBus;
+        private System.Windows.Forms.Button button3;
     }
 }

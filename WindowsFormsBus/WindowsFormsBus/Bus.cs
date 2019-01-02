@@ -44,5 +44,9 @@ namespace WindowsFormsBus
                 g.FillRectangle(brush, _startPosX + 80, _startPosY - 3, 8, 25);
             }
         }
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }

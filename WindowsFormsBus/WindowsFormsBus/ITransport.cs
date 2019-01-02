@@ -13,5 +13,7 @@ namespace WindowsFormsBus
         void MoveTransport(Direction direction);
 
         void DrawBus(Graphics g);
+
+        void SetMainColor(Color color);
     }
 }
