@@ -53,7 +53,7 @@ namespace WindowsFormsBus
             }
             Draw();
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonCreateStandartBus_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
             bus = new StandartBus(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.LightGreen);
