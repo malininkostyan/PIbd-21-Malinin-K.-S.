@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WindowsFormsBus
 {
-    interface ITransport
+    public interface ITransport
     {
         void SetPosition(int x, int y, int width, int height);
 
